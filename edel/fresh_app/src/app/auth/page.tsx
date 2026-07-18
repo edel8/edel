@@ -98,7 +98,7 @@ export default function AuthPage() {
   const [success, setSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
+  const [form, setForm] = useState({ name: "", email: "", username: "", password: "", confirm: "" });
   const [quoteIndex, setQuoteIndex] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [spotlight, setSpotlight] = useState({ x: 50, y: 30 });
@@ -183,8 +183,12 @@ export default function AuthPage() {
   const validate = (): boolean => {
     const next: Record<string, string> = {};
     if (mode === "signup" && !form.name.trim()) next.name = "A name helps us greet you softly.";
-    if (!form.email.trim()) next.email = "We need a way to reach you.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "That email doesn't look quite right.";
+    if (mode === "login") {
+      if (!form.username.trim()) next.username = "Username is required.";
+    } else {
+      if (!form.email.trim()) next.email = "We need a way to reach you.";
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "That email doesn't look quite right.";
+    }
     if (!form.password) next.password = "Choose a password to keep your space safe.";
     else if (form.password.length < 8) next.password = "At least 8 characters, please.";
     if (mode === "signup" && form.confirm !== form.password) next.confirm = "Those passwords don't match yet.";
@@ -192,11 +196,10 @@ export default function AuthPage() {
     return Object.keys(next).length === 0;
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return;
     if (!validate()) {
-      // trigger shake on the form card
       const card = containerRef.current?.querySelector("[data-form-card]");
       card?.animate(
         [{ transform: "translateX(0)" }, { transform: "translateX(-8px)" }, { transform: "translateX(8px)" }, { transform: "translateX(-5px)" }, { transform: "translateX(5px)" }, { transform: "translateX(0)" }],
@@ -207,35 +210,31 @@ export default function AuthPage() {
     setIsLoading(true);
     spawnRipple({ clientX: mousePos.x + 200, clientY: mousePos.y } as React.MouseEvent);
 
-    try {
-      if (mode === "login") {
-        const { error } = await signIn(form.email, form.password);
-        if (error) {
-          setErrors({ email: error });
+    if (mode === "login") {
+      await new Promise((r) => setTimeout(r, 800));
+      if (form.username === "edel" && form.password === "edel") {
+        localStorage.setItem("edel_auth", "true");
+        setSuccess(true);
+        spawnConfetti();
+        setTimeout(() => {
           setIsLoading(false);
-          return;
-        }
+          setSuccess(false);
+          router.push("/dashboard");
+        }, 1000);
       } else {
-        const { error } = await signUp(form.email, form.password, form.name);
-        if (error) {
-          setErrors({ email: error });
-          setIsLoading(false);
-          return;
-        }
+        setErrors({ username: "Invalid credentials. Try edel/edel." });
+        setIsLoading(false);
       }
-    } catch {
-      // Supabase env likely not configured in this environment — fall back to a graceful mock success
-    }
-
-    setTimeout(() => {
-      setIsLoading(false);
+    } else {
+      await new Promise((r) => setTimeout(r, 1500));
       setSuccess(true);
       spawnConfetti();
       setTimeout(() => {
+        setIsLoading(false);
         setSuccess(false);
         router.push("/dashboard");
       }, 1400);
-    }, 1500);
+    }
   };
 
   const switchMode = (next: Mode) => {
@@ -542,16 +541,28 @@ export default function AuthPage() {
                       )}
                     </AnimatePresence>
 
-                    <FloatingField
-                      id="email"
-                      label="Email address"
-                      type="email"
-                      icon={Mail}
-                      value={form.email}
-                      error={errors.email}
-                      onChange={(v) => setForm((f) => ({ ...f, email: v }))}
-                      autoComplete="email"
-                    />
+                    {mode === "login" ? (
+                      <FloatingField
+                        id="username"
+                        label="Username"
+                        icon={User}
+                        value={form.username}
+                        error={errors.username}
+                        onChange={(v) => setForm((f) => ({ ...f, username: v }))}
+                        autoComplete="username"
+                      />
+                    ) : (
+                      <FloatingField
+                        id="email"
+                        label="Email address"
+                        type="email"
+                        icon={Mail}
+                        value={form.email}
+                        error={errors.email}
+                        onChange={(v) => setForm((f) => ({ ...f, email: v }))}
+                        autoComplete="email"
+                      />
+                    )}
 
                     <FloatingField
                       id="password"
@@ -726,6 +737,18 @@ export default function AuthPage() {
                 <Leaf className="h-4 w-4 text-sage" /> Mindwell — your calm space
               </Link>
             </div>
+
+            {/* developer credit */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5 }}
+              className="mt-10 text-center"
+            >
+              <p className="text-xs text-mist-400">
+                صمم وطور بجهد شخصي بواسطة المطور عادل الخالدي
+              </p>
+            </motion.div>
           </div>
         </section>
       </div>

@@ -1,37 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/layout/DataProvider";
 import { AuthProvider } from "@/hooks/useAuth";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const dmSerif = DM_Serif_Display({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  display: "swap",
-});
+import { LenisProvider } from "@/components/layout/LenisProvider";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { ThemeSwitcher } from "@/components/layout/ThemeSwitcher";
 
 export const metadata: Metadata = {
-  title: "Mindwell - Your Mental Wellness Companion",
-  description: "A comprehensive mental health platform with therapy, CBT tools, mood tracking, and crisis support.",
-  keywords: ["mental health", "therapy", "CBT", "wellness", "mindfulness", "crisis support"],
-  authors: [{ name: "Mindwell Team" }],
+  title: "Edel - مساحة آمنة لفهم ذاتك | Your Mental Wellness Companion",
+  description: "منصة عربية للصحة النفسية - أدوات علاجية، تتبع مزاج، تمارين تنفس، ومجتمع داعم. A comprehensive mental health platform with therapy tools, mood tracking, and crisis support.",
+  keywords: ["صحة نفسية", "mental health", "علاج", "therapy", "CBT", "wellness", "mindfulness", "اكتئاب", "قلق", "إدمان"],
+  authors: [{ name: "عادل الخالدي - Adel Al-Khaldi" }],
   openGraph: {
-    title: "Mindwell - Your Mental Wellness Companion",
-    description: "A comprehensive mental health platform with therapy, CBT tools, mood tracking, and crisis support.",
+    title: "Edel - مساحة آمنة لفهم ذاتك",
+    description: "بنيت هذه المنصة بجهد شخصي وتعب حقيقي بهدف مساعدة الناس. كل جزء يعكس الالتزام بالجودة.",
     type: "website",
-    locale: "en_US",
-    siteName: "Mindwell",
+    locale: "ar_SA",
+    siteName: "Edel",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mindwell - Your Mental Wellness Companion",
-    description: "A comprehensive mental health platform with therapy, CBT tools, mood tracking, and crisis support.",
+    title: "Edel - مساحة آمنة لفهم ذاتك",
+    description: "Mental wellness platform crafted with dedication by Adel Al-Khaldi",
   },
   robots: {
     index: true,
@@ -41,8 +32,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f6ff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f1a" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -55,14 +46,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${dmSerif.variable}`}>
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="font-sans antialiased bg-background text-foreground min-h-screen">
         <Providers>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <LenisProvider>
+              <SiteHeader />
+              <main className="relative z-10">
+                {children}
+              </main>
+              <SiteFooter />
+              <ThemeSwitcher />
+            </LenisProvider>
+          </AuthProvider>
         </Providers>
       </body>
     </html>
