@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/lib/i18n";
-import { useTheme } from "./DataProvider";
 
 const navLinks = [
   { label: "الرئيسية", href: "/" },
@@ -54,24 +53,24 @@ export function SiteHeader() {
         animate={{ y: hidden ? -120 : 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-shadow duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-background/70 backdrop-blur-2xl shadow-glass border-b border-border-glass"
+            ? "bg-[#FFFCF5]/90 border-b border-[#EAEAEA]"
             : "bg-transparent"
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden group-hover:bg-primary/20 transition-colors">
-                <span className="text-primary font-bold text-lg">E</span>
+              <div className="relative w-9 h-9 rounded-full border border-[#EAEAEA] flex items-center justify-center bg-white">
+                <span className="text-[#111] font-bold text-lg">E</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-serif text-xl font-bold text-foreground leading-tight">
+                <span className="font-serif text-xl font-bold text-[#111] leading-tight">
                   Edel
                 </span>
-                <span className="text-[10px] text-muted-foreground/70 leading-tight -mt-0.5">
-                  عِدل — مساحة آمنة لفهم ذاتك
+                <span className="text-[10px] text-[#6B6B6B] leading-tight -mt-0.5">
+                  مساحة آمنة لفهم ذاتك
                 </span>
               </div>
             </Link>
@@ -81,7 +80,7 @@ export function SiteHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-xl hover:bg-glass-white dark:hover:bg-glass-dark transition-all duration-200"
+                  className="px-4 py-2 text-sm font-medium text-[#6B6B6B] hover:text-[#111] transition-colors duration-200"
                 >
                   {link.label}
                 </Link>
@@ -91,7 +90,7 @@ export function SiteHeader() {
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleLang}
-                className="glass-button-secondary px-3 py-1.5 text-xs font-medium rounded-xl min-w-[44px] text-center"
+                className="paper-btn-outline px-3 py-1.5 text-xs font-medium min-w-[44px] text-center"
                 aria-label="Toggle language"
               >
                 {locale === "ar" ? "EN" : "AR"}
@@ -99,7 +98,7 @@ export function SiteHeader() {
 
               <button
                 onClick={() => setMobileOpen(true)}
-                className="md:hidden glass-button p-2 rounded-xl"
+                className="md:hidden paper-btn-outline p-2"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />
@@ -115,7 +114,7 @@ export function SiteHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-black/50"
+            className="fixed inset-0 z-[60] bg-black/30"
             onClick={() => setMobileOpen(false)}
           />
         )}
@@ -129,16 +128,15 @@ export function SiteHeader() {
             exit={{ x: direction === "rtl" ? "100%" : "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className={cn(
-              "fixed top-0 bottom-0 z-[70] w-72 bg-background/95 backdrop-blur-2xl shadow-glass-strong",
-              direction === "rtl" ? "left-0 border-l" : "right-0 border-r",
-              "border-border-glass"
+              "fixed top-0 bottom-0 z-[70] w-72 bg-[#FFFCF5] border-l border-[#EAEAEA]",
+              direction === "rtl" ? "left-0 border-l" : "right-0 border-r"
             )}
           >
-            <div className="flex items-center justify-between p-4 border-b border-border-glass">
+            <div className="flex items-center justify-between p-4 border-b border-[#EAEAEA]">
               <span className="font-serif text-lg font-bold">Edel</span>
               <button
                 onClick={() => setMobileOpen(false)}
-                className="glass-button p-2 rounded-xl"
+                className="paper-btn-outline p-2"
                 aria-label="Close menu"
               >
                 <X className="h-5 w-5" />
@@ -150,7 +148,7 @@ export function SiteHeader() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 text-sm font-medium text-muted-foreground hover:text-foreground rounded-xl hover:bg-glass-white dark:hover:bg-glass-dark transition-all"
+                  className="block px-4 py-3 text-sm font-medium text-[#6B6B6B] hover:text-[#111] rounded-xl hover:bg-[#F8F5F0] transition-all"
                 >
                   {link.label}
                 </Link>
