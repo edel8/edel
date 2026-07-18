@@ -578,6 +578,7 @@ export default function DiseaseDetailPage() {
         <div className="mt-14 space-y-10">
           {SECTION_ICONS.map((sec, i) => {
             const content = disease[sec.id as keyof typeof disease];
+            if (typeof content !== 'string' && !Array.isArray(content)) return null;
             return (
               <motion.div
                 key={sec.id}

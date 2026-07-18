@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion, AnimatePresence as FramerAnimatePresence, HTMLMotionProps, type Variants, type Transition } from "framer-motion";
 import { ReactNode } from "react";
 
 const pageVariants = {
@@ -232,16 +232,16 @@ export function SlideTransition({ children, className = "", direction = "left", 
 }
 
 export function AnimatePresence({ children }: { children: ReactNode }) {
-  return <motion.AnimatePresence mode="wait">{children}</motion.AnimatePresence>;
+  return <FramerAnimatePresence mode="wait">{children}</FramerAnimatePresence>;
 }
 
 export function LayoutGroup({ children }: { children: ReactNode }) {
-  return <motion.LayoutGroup>{children}</motion.LayoutGroup>;
+  return <FramerAnimatePresence>{children}</FramerAnimatePresence>;
 }
 
 export function MotionComponent<Props extends Record<string, unknown>>(
   Component: React.ComponentType<Props>,
-  variants: MotionVariants = {},
+  variants: Variants = {},
   transition: Transition = {}
 ) {
   return motion(Component);
@@ -249,7 +249,7 @@ export function MotionComponent<Props extends Record<string, unknown>>(
 
 export function createMotionComponent<T extends React.ElementType>(
   component: T,
-  variants?: MotionVariants,
+  variants?: Variants,
   transition?: Transition
 ) {
   return motion(component as string);

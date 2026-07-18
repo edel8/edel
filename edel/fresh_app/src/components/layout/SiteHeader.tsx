@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/lib/i18n";
+import { useTheme } from "./DataProvider";
 
 const navLinks = [
   { label: "الرئيسية", href: "/" },
@@ -23,7 +25,7 @@ export function SiteHeader() {
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const lastScroll = useRef(0);
-  const [lang, setLang] = useState<"ar" | "en">("ar");
+  const { locale, setLocale, direction } = useI18n();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,10 +43,8 @@ export function SiteHeader() {
   }, []);
 
   const toggleLang = () => {
-    const next = lang === "ar" ? "en" : "ar";
-    setLang(next);
-    document.documentElement.dir = next === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = next;
+    const next = locale === "ar" ? "en" : "ar";
+    setLocale(next);
   };
 
   return (
@@ -94,7 +94,7 @@ export function SiteHeader() {
                 className="glass-button-secondary px-3 py-1.5 text-xs font-medium rounded-xl min-w-[44px] text-center"
                 aria-label="Toggle language"
               >
-                {lang === "ar" ? "EN" : "AR"}
+                {locale === "ar" ? "EN" : "AR"}
               </button>
 
               <button
@@ -124,11 +124,15 @@ export function SiteHeader() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.aside
-            initial={{ x: "100%" }}
+            initial={{ x: direction === "rtl" ? "100%" : "-100%" }}
             animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+            exit={{ x: direction === "rtl" ? "100%" : "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed top-0 left-0 bottom-0 z-[70] w-72 bg-background/95 backdrop-blur-2xl border-l border-border-glass shadow-glass-strong"
+            className={cn(
+              "fixed top-0 bottom-0 z-[70] w-72 bg-background/95 backdrop-blur-2xl shadow-glass-strong",
+              direction === "rtl" ? "left-0 border-l" : "right-0 border-r",
+              "border-border-glass"
+            )}
           >
             <div className="flex items-center justify-between p-4 border-b border-border-glass">
               <span className="font-serif text-lg font-bold">Edel</span>

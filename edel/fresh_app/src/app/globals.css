@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap');
 
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "IBM Plex Sans Arabic", "Noto Naskh Arabic", "DM Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "DM Serif Display", "IBM Plex Sans Arabic", ui-serif, Georgia, serif;
-  --font-arabic: "IBM Plex Sans Arabic", "Noto Naskh Arabic", system-ui, sans-serif;
+  --font-sans: "Tajawal", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "DM Serif Display", "Tajawal", ui-serif, Georgia, serif;
+  --font-arabic: "Tajawal", system-ui, sans-serif;
+  --font-english: "Plus Jakarta Sans", system-ui, sans-serif;
 
   --color-sage-50: #f6fef9;
   --color-sage-100: #e8f8f0;
@@ -143,7 +144,8 @@
 }
 
 @layer base {
-  :root {
+  :root,
+  [data-palette="green"] {
     --background: #FCFBF8;
     --foreground: #1a1a2e;
     --card: #ffffff;
@@ -152,18 +154,61 @@
     --popover-foreground: #1a1a2e;
     --primary: #1a1a2e;
     --primary-foreground: #ffffff;
-    --secondary: #f0eeff;
+    --secondary: #f0fef4;
     --secondary-foreground: #1a1a2e;
     --muted: #f5f5f0;
     --muted-foreground: #7c7ba0;
-    --accent: #f3f0ff;
-    --accent-foreground: #4a3f7a;
+    --accent: #ecfdf5;
+    --accent-foreground: #065f46;
     --destructive: #f43f5e;
     --destructive-foreground: #ffffff;
     --border: rgba(0, 0, 0, 0.05);
     --input: rgba(0, 0, 0, 0.05);
-    --ring: #1a1a2e;
+    --ring: #059669;
+    --palette-primary: #059669;
+    --palette-primary-light: #34d399;
+    --palette-primary-dark: #047857;
     --radius: 12px;
+  }
+
+  [data-palette="blue"] {
+    --secondary: #eff6ff;
+    --accent: #dbeafe;
+    --accent-foreground: #1e40af;
+    --ring: #3b82f6;
+    --palette-primary: #3b82f6;
+    --palette-primary-light: #60a5fa;
+    --palette-primary-dark: #2563eb;
+  }
+
+  [data-palette="purple"] {
+    --secondary: #f3f0ff;
+    --accent: #ede9fe;
+    --accent-foreground: #5b21b6;
+    --ring: #8b5cf6;
+    --palette-primary: #8b5cf6;
+    --palette-primary-light: #a78bfa;
+    --palette-primary-dark: #7c3aed;
+  }
+
+  [data-palette="orange"] {
+    --secondary: #fff7ed;
+    --accent: #ffedd5;
+    --accent-foreground: #9a3412;
+    --ring: #f97316;
+    --palette-primary: #f97316;
+    --palette-primary-light: #fb923c;
+    --palette-primary-dark: #ea580c;
+  }
+
+  [data-palette="red"] {
+    --secondary: #fef2f2;
+    --accent: #fee2e2;
+    --accent-foreground: #991b1b;
+    --ring: #ef4444;
+    --palette-primary: #ef4444;
+    --palette-primary-light: #f87171;
+    --palette-primary-dark: #dc2626;
   }
 
   :root {
@@ -175,7 +220,8 @@
     --color-glass-dark-subtle: rgba(10, 10, 20, 0.5);
   }
 
-  .dark {
+  .dark,
+  .dark[data-palette="green"] {
     --background: #0f0f1a;
     --foreground: #f0f0f8;
     --card: rgba(15, 15, 26, 0.7);
@@ -184,17 +230,20 @@
     --popover-foreground: #f0f0f8;
     --primary: #f0f0f8;
     --primary-foreground: #0f0f1a;
-    --secondary: #1a1a30;
+    --secondary: #0a1f14;
     --secondary-foreground: #f0f0f8;
     --muted: #1a1a30;
     --muted-foreground: #8a8aa0;
-    --accent: #2a2a4a;
-    --accent-foreground: #d0d0ff;
+    --accent: #064e3b;
+    --accent-foreground: #a7f3d0;
     --destructive: #ff6b6b;
     --destructive-foreground: #0f0f1a;
     --border: rgba(255, 255, 255, 0.1);
     --input: rgba(255, 255, 255, 0.1);
-    --ring: #f0f0f8;
+    --ring: #34d399;
+    --palette-primary: #34d399;
+    --palette-primary-light: #6ee7b7;
+    --palette-primary-dark: #059669;
 
     --color-glass-white: rgba(40, 40, 60, 0.7);
     --color-glass-white-strong: rgba(40, 40, 60, 0.85);
@@ -202,6 +251,46 @@
     --color-glass-dark: rgba(0, 0, 0, 0.7);
     --color-glass-dark-strong: rgba(0, 0, 0, 0.85);
     --color-glass-dark-subtle: rgba(0, 0, 0, 0.5);
+  }
+
+  .dark[data-palette="blue"] {
+    --secondary: #0c1e3e;
+    --accent: #1e3a5f;
+    --accent-foreground: #93c5fd;
+    --ring: #60a5fa;
+    --palette-primary: #60a5fa;
+    --palette-primary-light: #93c5fd;
+    --palette-primary-dark: #3b82f6;
+  }
+
+  .dark[data-palette="purple"] {
+    --secondary: #1e1030;
+    --accent: #2e1a5e;
+    --accent-foreground: #c4b5fd;
+    --ring: #a78bfa;
+    --palette-primary: #a78bfa;
+    --palette-primary-light: #c4b5fd;
+    --palette-primary-dark: #8b5cf6;
+  }
+
+  .dark[data-palette="orange"] {
+    --secondary: #2e1a0a;
+    --accent: #3e2a14;
+    --accent-foreground: #fdba74;
+    --ring: #fb923c;
+    --palette-primary: #fb923c;
+    --palette-primary-light: #fdba74;
+    --palette-primary-dark: #f97316;
+  }
+
+  .dark[data-palette="red"] {
+    --secondary: #2e0a0a;
+    --accent: #3e1414;
+    --accent-foreground: #fca5a5;
+    --ring: #f87171;
+    --palette-primary: #f87171;
+    --palette-primary-light: #fca5a5;
+    --palette-primary-dark: #ef4444;
   }
 }
 

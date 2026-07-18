@@ -223,7 +223,7 @@ export function IconButton({
   label: string;
 } & Omit<HTMLMotionProps<"button">, "ref">) {
   return (
-    <Button variant={variant} size={size} aria-label={label} className={className} icon={Icon} {...props} />
+    <Button variant={variant} size={size} aria-label={label} className={className} icon={Icon} {...(props as any)} />
   );
 }
 

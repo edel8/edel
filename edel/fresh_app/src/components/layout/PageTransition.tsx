@@ -131,7 +131,7 @@ export function StaggerItem({ children, delay = 0 }: { children: ReactNode; dela
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 30 } },
       }}
-      style={{ transitionDelay: delay }}
+      style={{ transitionDelay: `${delay}ms` }}
       className="w-full"
     >
       {children}

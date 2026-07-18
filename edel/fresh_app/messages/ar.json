@@ -1,0 +1,48 @@
+{
+  "site": {
+    "title": "Edel - مساحة آمنة لفهم ذاتك",
+    "tagline": "عِدل — مساحة آمنة لفهم ذاتك",
+    "description": "منصة عربية للصحة النفسية - أدوات علاجية، تتبع مزاج، تمارين تنفس، ومجتمع داعم"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "diseases": "الأمراض",
+    "awareness": "توعية",
+    "treatments": "علاجي",
+    "natural": "طبيعي",
+    "games": "ألعاب",
+    "vent": "فضفضة",
+    "about": "عنا",
+    "contact": "تواصل"
+  },
+  "actions": {
+    "toggleLang": "EN",
+    "toggleTheme": "الوضع",
+    "light": "فاتح",
+    "dark": "داكن",
+    "startJourney": "ابدأ رحلتك",
+    "watchTour": "شاهد الجولة",
+    "learnMore": "استكشف",
+    "getStarted": "ابدأ مجاناً",
+    "contactUs": "تواصل معنا"
+  },
+  "hero": {
+    "badge": "مساحة آمنة لفهم ذاتك",
+    "title": "عقلك\nبين أيدٍ أمينة.",
+    "subtitle": "إيدل is a quiet sanctuary for your mental wellness — therapy tools, mood tracking, and a community that holds you without judgment.",
+    "freePlan": "خطة مجانية للأبد · بدون بطاقة ائتمان"
+  },
+  "footer": {
+    "copyright": "جميع الحقوق محفوظة",
+    "quickLinks": "روابط سريعة",
+    "craftedBy": "صُمم وطُور بعناية فائقة وجهد شخصي بواسطة المطور عادل الخالدي",
+    "craftedByEn": "Crafted with dedication by Adel Al-Khaldi"
+  },
+  "palette": {
+    "green": "أخضر",
+    "blue": "أزرق",
+    "purple": "بنفسجي",
+    "orange": "برتقالي",
+    "red": "أحمر"
+  }
+}

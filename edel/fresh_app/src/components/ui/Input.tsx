@@ -281,18 +281,18 @@ export const Textarea = forwardRef<HTMLTextAreaElement, InputProps & { rows?: nu
               id={inputId}
               rows={rows}
               value={value}
-              onFocus={(e) => {
+              onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => {
                 setFocused(true);
-                onFocus?.(e);
+                (onFocus as unknown as ((e: React.FocusEvent<HTMLTextAreaElement>) => void))?.(e);
               }}
-              onBlur={(e) => {
+              onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => {
                 setFocused(false);
                 setTouched(true);
-                onBlur?.(e);
+                (onBlur as unknown as ((e: React.FocusEvent<HTMLTextAreaElement>) => void))?.(e);
               }}
               className={cn("w-full resize-y bg-transparent pt-5 text-foreground outline-none", sizeMap[inputSize], className)}
               aria-invalid={showError ? "true" : "false"}
-              {...props}
+              {...(props as React.ComponentPropsWithoutRef<"textarea">)}
             />
           </div>
         </div>
@@ -381,18 +381,18 @@ export const Select = forwardRef<HTMLSelectElement, InputProps & { options: { va
               ref={ref}
               id={inputId}
               value={value}
-              onFocus={(e) => {
+              onFocus={(e: React.FocusEvent<HTMLSelectElement>) => {
                 setFocused(true);
-                onFocus?.(e);
+                (onFocus as unknown as ((e: React.FocusEvent<HTMLSelectElement>) => void))?.(e);
               }}
-              onBlur={(e) => {
+              onBlur={(e: React.FocusEvent<HTMLSelectElement>) => {
                 setFocused(false);
                 setTouched(true);
-                onBlur?.(e);
+                (onBlur as unknown as ((e: React.FocusEvent<HTMLSelectElement>) => void))?.(e);
               }}
               className={cn("w-full bg-transparent pt-4 text-foreground outline-none", className)}
               aria-invalid={showError ? "true" : "false"}
-              {...props}
+              {...(props as React.ComponentPropsWithoutRef<"select">)}
             >
               {options.map((o) => (
                 <option key={o.value} value={o.value} className="bg-offwhite text-charcoal">
