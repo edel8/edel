@@ -221,7 +221,7 @@ export function IconButton({
   size?: ButtonSize;
   className?: string;
   label: string;
-} & Omit<HTMLMotionProps<"button">, "ref">) {
+}   & Omit<HTMLMotionProps<"button">, "ref" | "children">) {
   return (
     <Button variant={variant} size={size} aria-label={label} className={className} icon={Icon} {...props} />
   );

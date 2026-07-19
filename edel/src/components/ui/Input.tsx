@@ -283,16 +283,16 @@ export const Textarea = forwardRef<HTMLTextAreaElement, InputProps & { rows?: nu
               value={value}
               onFocus={(e) => {
                 setFocused(true);
-                onFocus?.(e);
+                onFocus?.(e as any);
               }}
               onBlur={(e) => {
                 setFocused(false);
                 setTouched(true);
-                onBlur?.(e);
+                onBlur?.(e as any);
               }}
               className={cn("w-full resize-y bg-transparent pt-5 text-foreground outline-none", sizeMap[inputSize], className)}
               aria-invalid={showError ? "true" : "false"}
-              {...props}
+              {...props as any}
             />
           </div>
         </div>
@@ -383,16 +383,16 @@ export const Select = forwardRef<HTMLSelectElement, InputProps & { options: { va
               value={value}
               onFocus={(e) => {
                 setFocused(true);
-                onFocus?.(e);
+                onFocus?.(e as any);
               }}
               onBlur={(e) => {
                 setFocused(false);
                 setTouched(true);
-                onBlur?.(e);
+                onBlur?.(e as any);
               }}
               className={cn("w-full bg-transparent pt-4 text-foreground outline-none", className)}
               aria-invalid={showError ? "true" : "false"}
-              {...props}
+              {...props as any}
             >
               {options.map((o) => (
                 <option key={o.value} value={o.value} className="bg-offwhite text-charcoal">

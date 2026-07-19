@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, useMotionValue, animate } from "framer-motion";
 import {
   Brain, Heart, Sparkles, ArrowLeft, ArrowRight, BookOpen,
   MessageSquare, Gamepad2, AlertTriangle, Compass, Wind,
-  Flower2, Feather, Waves, Check, Play,
+  Flower2, Feather, Waves, Check, Play, Smartphone, Target, Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +35,25 @@ const FEATURES = [
   { icon: Waves, title: "تمارين التنفس", desc: "تقنيات تنفس مهدئة مبنية على أبحاث علمية، تساعدك على استعادة هدوءك في دقائق." },
   { icon: Feather, title: "قصص ملهمة", desc: "قصص حقيقية لأناس مروا بتجارب صعبة وخرجوا أقوى. الأمل ممكن." },
 ];
+
+function AnimatedCounter({ to, suffix = "", decimals = 0 }: { to: number; suffix?: string; decimals?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const count = useMotionValue(0);
+  const display = useTransform(count, (v) => v.toFixed(decimals));
+
+  useEffect(() => {
+    if (!isInView) return;
+    const controls = animate(count, to, { duration: 2, ease: EASE });
+    return () => controls.stop();
+  }, [isInView, count, to]);
+
+  return (
+    <span ref={ref}>
+      <motion.span>{display}</motion.span>{suffix}
+    </span>
+  );
+}
 
 export default function LandingPage() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -283,6 +302,254 @@ export default function LandingPage() {
               <text x="258" y="265" fontSize="10" fill="#6B6B6B" textAnchor="middle">الحصين</text>
             </svg>
           </div>
+        </div>
+      </section>
+
+      {/* === AI & MENTAL HEALTH: Centered, single column === */}
+      <section className="px-6 py-28 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">
+              <span className="inline-block h-px w-6 bg-[#EAEAEA] ml-2 align-middle" />
+              الذكاء الاصطناعي والصحة النفسية
+            </span>
+            <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              هل تخاف من تطور الذكاء الاصطناعي؟
+            </h2>
+            <div className="mt-6 space-y-4 text-lg leading-relaxed text-[#6B6B6B]">
+              <p>
+                في زمن الذكاء الاصطناعي التوليدي والتسارع التكنولوجي المخيف، أصبح القلق من المستقبل
+                ظاهرة جماعية. كثير منا يتساءل: هل سيأخذ الذكاء الاصطناعي وظيفتي؟ هل سأصبح غير مهم؟
+              </p>
+              <p className="text-[#111] font-medium">
+                "وفق دراسة 2024، 67% من الشباب العربي يشعرون بقلق من تطور الذكاء الاصطناعي"
+              </p>
+            </div>
+            <Link
+              href="/blog/ai-anxiety"
+              className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#111] border-b border-[#111] pb-0.5 transition-all hover:gap-3 group"
+            >
+              اقرأ المزيد عن قلق الذكاء الاصطناعي
+              <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* === GEN Z & DIGITAL BURNOUT: Side-by-side layout === */}
+      <section className="border-t border-[#EAEAEA]">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-2">
+          <div className="order-2 p-6 sm:p-10 lg:p-16 lg:order-1">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">
+                <span className="inline-block h-px w-6 bg-[#EAEAEA] ml-2 align-middle" />
+                جيل Z والإرهاق الرقمي
+              </span>
+              <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl">
+                متصلون لكن منهكون
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-[#6B6B6B]">
+                وسائل التواصل الاجتماعي، الدوبامين، إدمان الهاتف، اضطرابات النوم — هذه هي تحديات
+                الصحة النفسية الأكثر إلحاحاً لجيل Z.
+              </p>
+              <div className="mt-8 flex items-center gap-6">
+                <div className="text-center">
+                  <div className="font-serif text-5xl font-bold text-[#111]">
+                    <AnimatedCounter to={4.5} decimals={1} suffix="+" />
+                  </div>
+                  <p className="mt-1 text-sm text-[#6B6B6B]">ساعات يومياً على وسائل التواصل</p>
+                </div>
+                <div className="h-12 w-px bg-[#EAEAEA]" />
+                <div className="text-center">
+                  <div className="font-serif text-5xl font-bold text-[#111]">
+                    <AnimatedCounter to={70} suffix="%" />
+                  </div>
+                  <p className="mt-1 text-sm text-[#6B6B6B]">يعانون من اضطرابات النوم</p>
+                </div>
+              </div>
+              <Link
+                href="/blog/digital-burnout"
+                className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#111] border-b border-[#111] pb-0.5 transition-all hover:gap-3 group"
+              >
+                تعرف على الإرهاق الرقمي وكيفية التعامل معه
+                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+          </div>
+          <div className="order-1 flex items-center justify-center bg-[#F8F5F0] p-10 sm:p-16 lg:order-2">
+            <div className="text-center">
+              <Smartphone className="mx-auto h-16 w-16 text-[#111]/20" />
+              <p className="mt-4 font-serif text-lg text-[#6B6B6B]">الإدمان الرقمي<br />القاتل الصامت</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* === WRITING THERAPY: Full-width background === */}
+      <section className="relative overflow-hidden bg-[#F8F5F0] py-28">
+        <div className="mx-auto max-w-4xl px-6 text-center sm:px-10 lg:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">
+              <span className="inline-block h-px w-6 bg-[#EAEAEA] ml-2 align-middle" />
+              الكتابة العلاجية
+            </span>
+            <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl">
+              القلم أقوى من الألم
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-[#6B6B6B]">
+              التدوين اليومي والتعبير الكتابي هما من أقوى أدوات الصحة النفسية. الكتابة تساعدك على
+              تنظيم الأفكار، تفريغ المشاعر المكبوتة، ورؤية مشاكلك بوضوح أكبر.
+            </p>
+            <div className="mx-auto mt-10 max-w-xl border-r-4 border-[#111] pr-6 text-right">
+              <p className="text-lg leading-relaxed text-[#6B6B6B] italic">
+                "الكتابة التعبيرية تحسن الصحة النفسية والجسدية، وتقلل من أعراض الاكتئاب والقلق
+                بنسبة تصل إلى 40%"
+              </p>
+              <p className="mt-2 text-xs text-[#6B6B6B]">— دراسة جامعة تكساس، 2023</p>
+            </div>
+            <Link
+              href="/blog/writing-therapy"
+              className="mt-10 inline-flex items-center gap-2 text-sm font-medium text-[#111] border-b border-[#111] pb-0.5 transition-all hover:gap-3 group"
+            >
+              اكتشف قوة الكتابة العلاجية
+              <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* === NATURE THERAPY: Side image/text === */}
+      <section className="border-t border-[#EAEAEA]">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="relative hidden lg:block">
+            <div
+              className="absolute inset-0 bg-cover bg-center"
+              style={{
+                backgroundImage: "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop')",
+                filter: "grayscale(0.5) brightness(0.7)",
+              }}
+            />
+          </div>
+          <div className="p-6 sm:p-10 lg:p-16">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="text-xs uppercase tracking-[0.2em] text-[#6B6B6B]">
+                <span className="inline-block h-px w-6 bg-[#EAEAEA] ml-2 align-middle" />
+                الطبيعة والتعافي
+              </span>
+              <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-tight sm:text-5xl">
+                الطبيعة تعيد ضبط عقلك
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-[#6B6B6B]">
+                العلاج البيئي (Ecotherapy) ليس مجرد نزهة في الحديقة. إنه ممارسة علاجية مدعومة
+                بأبحاث علمية تثبت أن قضاء الوقت في الطبيعة يخفض الكورتيزول، يحسن المزاج، ويعيد
+                ضبط إيقاعك العصبي.
+              </p>
+              <Link
+                href="/blog/nature-therapy"
+                className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#111] border-b border-[#111] pb-0.5 transition-all hover:gap-3 group"
+              >
+                كيف تساعدك الطبيعة على الشفاء
+                <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* === FUTURE ANXIETY: Dark section === */}
+      <section className="relative overflow-hidden bg-[#111] px-6 py-28 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="text-xs uppercase tracking-[0.2em] text-white/40">
+              <span className="inline-block h-px w-6 bg-white/20 ml-2 align-middle" />
+              قلق المستقبل
+            </span>
+            <h2 className="mt-5 font-serif text-4xl leading-[1.05] tracking-tight text-[#FFFCF5] sm:text-5xl lg:text-6xl">
+              الخوف من المجهول
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/70">
+              قلق المناخ، عدم اليقين الاقتصادي، الخوف من فقدان الوظيفة، والأزمات العالمية — كلها
+              تخلق حالة من الترقب الدائم التي تستنزف طاقتنا النفسية.
+            </p>
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
+              <div className="rounded-lg border border-white/10 p-6">
+                <Target className="mx-auto h-8 w-8 text-white/40" />
+                <p className="mt-3 font-serif text-lg text-[#FFFCF5]">قلق المناخ</p>
+                <p className="mt-1 text-sm text-white/50">75% من الشباب يصفون مستقبل الكوكب بأنه "مخيف"</p>
+              </div>
+              <div className="rounded-lg border border-white/10 p-6">
+                <Globe className="mx-auto h-8 w-8 text-white/40" />
+                <p className="mt-3 font-serif text-lg text-[#FFFCF5]">عدم اليقين الاقتصادي</p>
+                <p className="mt-1 text-sm text-white/50">التضخم والبطالة يزيدان من القلق المزمن</p>
+              </div>
+              <div className="rounded-lg border border-white/10 p-6">
+                <AlertTriangle className="mx-auto h-8 w-8 text-white/40" />
+                <p className="mt-3 font-serif text-lg text-[#FFFCF5]">الخوف من المستقبل</p>
+                <p className="mt-1 text-sm text-white/50">الأزمات المتتالية تخلق شعوراً بعدم الأمان</p>
+              </div>
+            </div>
+            <Link
+              href="/blog/future-anxiety"
+              className="mt-10 inline-flex items-center gap-2 text-sm font-medium text-[#FFFCF5] border-b border-[#FFFCF5]/40 pb-0.5 transition-all hover:gap-3 group"
+            >
+              كيف تواجه قلق المستقبل
+              <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* === MINI CTA: Within content area === */}
+      <section className="px-6 py-16 sm:px-10 lg:px-16">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="rounded-2xl border border-[#EAEAEA] bg-[#F8F5F0] p-10 text-center sm:p-16"
+          >
+            <Feather className="mx-auto h-8 w-8 text-[#111]/30" />
+            <h3 className="mt-4 font-serif text-3xl leading-[1.05] tracking-tight sm:text-4xl">
+              رحلتك تبدأ بكلمة
+            </h3>
+            <p className="mx-auto mt-3 max-w-md text-lg leading-relaxed text-[#6B6B6B]">
+              كل خطوة صغيرة تقربك من نفسك. ابدأ اليوم — بلا ضغط، بلا أحكام، فقط أنت وعقلك
+              بين أيدٍ أمينة.
+            </p>
+            <Link
+              href="/auth"
+              className="paper-btn group mt-6 inline-flex items-center gap-3 text-sm"
+            >
+              ابدأ مجاناً
+              <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 

@@ -1,0 +1,48 @@
+{
+  "site": {
+    "title": "Edel - A Safe Space to Understand Yourself",
+    "tagline": "Edel — A safe space to understand yourself",
+    "description": "Arabic mental health platform - therapy tools, mood tracking, breathing exercises, and supportive community"
+  },
+  "nav": {
+    "home": "Home",
+    "diseases": "Diseases",
+    "awareness": "Awareness",
+    "treatments": "Treatments",
+    "natural": "Natural",
+    "games": "Games",
+    "vent": "Vent",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "actions": {
+    "toggleLang": "AR",
+    "toggleTheme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "startJourney": "Start Your Journey",
+    "watchTour": "Watch Tour",
+    "learnMore": "Explore",
+    "getStarted": "Get Started Free",
+    "contactUs": "Contact Us"
+  },
+  "hero": {
+    "badge": "A safe space to understand yourself",
+    "title": "Your mind\nin safe hands.",
+    "subtitle": "Edel is a quiet sanctuary for your mental wellness — therapy tools, mood tracking, and a community that holds you without judgment.",
+    "freePlan": "Free forever · No credit card required"
+  },
+  "footer": {
+    "copyright": "All rights reserved",
+    "quickLinks": "Quick Links",
+    "craftedBy": "Designed and developed with dedication by Adel Al-Khaldi",
+    "craftedByEn": "Crafted with dedication by Adel Al-Khaldi"
+  },
+  "palette": {
+    "green": "Green",
+    "blue": "Blue",
+    "purple": "Purple",
+    "orange": "Orange",
+    "red": "Red"
+  }
+}

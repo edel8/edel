@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import type { User, WellnessEntry, Appointment, Disorder, CBTExercise, GameSession, VentPost } from "@/types";
+import { I18nProvider } from "@/lib/i18n";
 
 interface AppDataContextType {
   user: User | null;
@@ -122,15 +123,17 @@ interface ThemeContextType {
   setTheme: (theme: "light" | "dark") => void;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextType>({
+  theme: "light",
+  toggleTheme: () => {},
+  setTheme: () => {},
+});
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    const stored = localStorage.getItem("mindwell-theme") as "light" | "dark" | null;
+    const stored = localStorage.getItem("edel-theme") as "light" | "dark" | null;
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const initialTheme = stored || (prefersDark ? "dark" : "light");
     setTheme(initialTheme);
@@ -140,7 +143,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = useCallback(() => {
     setTheme((prev) => {
       const next = prev === "light" ? "dark" : "light";
-      localStorage.setItem("mindwell-theme", next);
+      localStorage.setItem("edel-theme", next);
       document.documentElement.classList.toggle("dark", next === "dark");
       return next;
     });
@@ -148,13 +151,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const setThemeDirect = useCallback((newTheme: "light" | "dark") => {
     setTheme(newTheme);
-    localStorage.setItem("mindwell-theme", newTheme);
+    localStorage.setItem("edel-theme", newTheme);
     document.documentElement.classList.toggle("dark", newTheme === "dark");
   }, []);
-
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme: setThemeDirect }}>
@@ -164,17 +163,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 }
 
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
+  return useContext(ThemeContext);
 }
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider>
-      <AppDataProvider>{children}</AppDataProvider>
+      <I18nProvider>
+        <AppDataProvider>{children}</AppDataProvider>
+      </I18nProvider>
     </ThemeProvider>
   );
 }

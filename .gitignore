@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.opencode/
+.env.local
+*.tsbuildinfo
+pnpm-lock.yaml
+yarn.lock
+.next/

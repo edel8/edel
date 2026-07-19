@@ -16,7 +16,7 @@ const stats = [
 const quickActions = [
   { name: "Log Mood", href: "/wellness-tracker", icon: Heart, description: "Track your daily mood", color: "bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400" },
   { name: "CBT Exercise", href: "/cbt-playbook", icon: Brain, description: "Practice cognitive restructuring", color: "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400" },
-  { name: "Play Game", href: "/mind-games", icon: Gamepad2, description: "Cognitive training games", color: "bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400" },
+  { name: "Play Game", href: "/mind-games", icon: Gamepad2, description: "Cognitive training games", color: "bg-indigo-100 text-indigo-600 dark:bg-indigo-900/30 dark:text-indigo-400" },
   { name: "Connect", href: "/vent-connect", icon: MessageSquare, description: "Share & support others", color: "bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400" },
   { name: "Emergency", href: "/emergency", icon: AlertTriangle, description: "Crisis resources", color: "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400" },
   { name: "Learn", href: "/disorders", icon: BookOpen, description: "Mental health library", color: "bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400" },
@@ -25,7 +25,7 @@ const quickActions = [
 const recentActivity = [
   { type: "mood", title: "Mood Logged", description: "Feeling peaceful and grateful", time: "2 hours ago", icon: Heart, color: "text-rose-500" },
   { type: "exercise", title: "CBT Completed", description: "Thought Record - Anxiety", time: "5 hours ago", icon: Brain, color: "text-blue-500" },
-  { type: "game", title: "Game Played", description: "Memory Match - Score: 2,450", time: "Yesterday", icon: Gamepad2, color: "text-purple-500" },
+  { type: "game", title: "Game Played", description: "Memory Match - Score: 2,450", time: "Yesterday", icon: Gamepad2, color: "text-indigo-500" },
   { type: "session", title: "Therapy Session", description: "Dr. Sarah Mitchell - Completed", time: "2 days ago", icon: Clock, color: "text-emerald-500" },
 ];
 

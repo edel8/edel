@@ -18,10 +18,8 @@ import {
   Meh,
   Search,
   ChevronLeft,
-  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Card, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/Input";
 
 const DISEASES = [
@@ -32,8 +30,8 @@ const DISEASES = [
     desc: "اضطراب نفسي يتميز بمشاعر حزينة مستمرة وفقدان الاهتمام بالأنشطة اليومية لمدة أسبوعين على الأقل.",
     icon: Frown,
     color: "text-rose-500",
-    bg: "from-rose-500/10",
     stats: "أكثر من 280 مليون مصاب حول العالم",
+    symptomsPreview: "حزن مستمر, فقدان شغف, تعب, تغير في الشهية",
   },
   {
     slug: "generalized-anxiety",
@@ -42,8 +40,8 @@ const DISEASES = [
     desc: "قلق مفرط ومستمر تجاه أحداث يومية عادية، يصاحبه توتر عضلي وصعوبة في التركيز.",
     icon: Zap,
     color: "text-amber-500",
-    bg: "from-amber-500/10",
     stats: "يؤثر على 6% من البالغين سنويًا",
+    symptomsPreview: "قلق دائم, توتر عضلي, أرق, صعوبة تركيز",
   },
   {
     slug: "panic-disorder",
@@ -52,8 +50,8 @@ const DISEASES = [
     desc: "نوبات مفاجئة من الخوف الشديد تصاحبها أعراض جسدية كخفقان القلب وضيق التنفس والدوار.",
     icon: Flame,
     color: "text-orange-500",
-    bg: "from-orange-500/10",
     stats: "2-3% من السكان يعانون منه",
+    symptomsPreview: "خفقان, خوف شديد, ضيق تنفس, دوار",
   },
   {
     slug: "ocd",
@@ -61,9 +59,9 @@ const DISEASES = [
     subtitle: "اضطراب وسواسي قهري",
     desc: "أفكار مزعجة متكررة (وساوس) تدفع الشخص لتكرار سلوكيات معينة (أفعال قهرية) لتخفيف القلق.",
     icon: Repeat,
-    color: "text-purple-500",
-    bg: "from-purple-500/10",
+    color: "text-neutral-600",
     stats: "نسبة انتشاره 2-3% عالميًا",
+    symptomsPreview: "أفكار مزعجة متكررة, تكرار سلوكيات, شك دائم",
   },
   {
     slug: "bipolar",
@@ -72,8 +70,8 @@ const DISEASES = [
     desc: "تقلبات شديدة بين نوبات الهوس (نشاط مفرط) والاكتئاب (انخفاض حاد في المزاج).",
     icon: Brain,
     color: "text-indigo-500",
-    bg: "from-indigo-500/10",
     stats: "يؤثر على 1-3% من السكان",
+    symptomsPreview: "تقلبات مزاجية حادة, هوس, اكتئاب, اندفاعية",
   },
   {
     slug: "ptsd",
@@ -82,8 +80,8 @@ const DISEASES = [
     desc: "اضطراب نفسي يحدث بعد التعرض لحدث صادم، يتضمن ذكريات اقتحامية وكوابيس وتجنب.",
     icon: Eye,
     color: "text-red-500",
-    bg: "from-red-500/10",
     stats: "حوالي 7-8% سيصابون به في حياتهم",
+    symptomsPreview: "ذكريات اقتحامية, كوابيس, تجنب, فرط يقظة",
   },
   {
     slug: "insomnia",
@@ -92,8 +90,8 @@ const DISEASES = [
     desc: "صعوبة في الدخول في النوم أو الاستمرار فيه، يؤدي إلى إرهاق نهاري وضعف في الأداء الوظيفي.",
     icon: Moon,
     color: "text-sky-500",
-    bg: "from-sky-500/10",
     stats: "30% من البالغين يعانون منه مؤقتًا",
+    symptomsPreview: "صعوبة نوم, استيقاظ متكرر, إرهاق, تعب نهاري",
   },
   {
     slug: "burnout",
@@ -102,8 +100,8 @@ const DISEASES = [
     desc: "حالة من الإرهاق العاطفي والجسدي والعقلي ناتجة عن ضغط عمل مفرط ومستمر.",
     icon: BatteryWarning,
     color: "text-teal-500",
-    bg: "from-teal-500/10",
     stats: "أكثر من 50% من الموظفين يعانون منه",
+    symptomsPreview: "إرهاق مستمر, فقدان شغف, سخرية, انخفاض إنتاجية",
   },
   {
     slug: "social-anxiety",
@@ -112,8 +110,8 @@ const DISEASES = [
     desc: "خوف شديد ومستمر من المواقف الاجتماعية أو الأداء أمام الآخرين خوفًا من الإحراج.",
     icon: Users,
     color: "text-emerald-500",
-    bg: "from-emerald-500/10",
     stats: "12% من السكان يصابون به في مرحلة ما",
+    symptomsPreview: "خوف من المواقف الاجتماعية, تجنب, احمرار, رجفة",
   },
   {
     slug: "schizophrenia",
@@ -122,8 +120,8 @@ const DISEASES = [
     desc: "اضطراب عقلي مزمن يتسم بالهلوسات والأوهام واضطراب في التفكير والسلوك.",
     icon: Brain,
     color: "text-violet-500",
-    bg: "from-violet-500/10",
     stats: "يؤثر على 0.5-1% من السكان",
+    symptomsPreview: "هلوسات, أوهام, كلام غير مترابط, انسحاب اجتماعي",
   },
   {
     slug: "bpd",
@@ -132,8 +130,8 @@ const DISEASES = [
     desc: "نمط من عدم الاستقرار في العلاقات والصورة الذاتية والمشاعر، مع اندفاعية ملحوظة.",
     icon: AlertTriangle,
     color: "text-pink-500",
-    bg: "from-pink-500/10",
     stats: "1.6-5.9% من العامة",
+    symptomsPreview: "خوف من الهجر, تقلبات عاطفية, فراغ, اندفاعية",
   },
   {
     slug: "eating-disorders",
@@ -142,8 +140,8 @@ const DISEASES = [
     desc: "مجموعة من الاضطرابات النفسية التي تؤثر على عادات الأكل، كفقدان الشهية والشره المرضي.",
     icon: Heart,
     color: "text-rose-400",
-    bg: "from-rose-400/10",
     stats: "9% من السكان يتأثرون بها",
+    symptomsPreview: "تقييد أكل, نهم, قيء, هوس بالوزن",
   },
 ];
 
@@ -151,23 +149,13 @@ export default function DiseasesPage() {
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(
-    () => DISEASES.filter(d => d.name.includes(search) || d.desc.includes(search)),
-    [search]
+    () => DISEASES.filter((d) => d.name.includes(search) || d.desc.includes(search)),
+    [search],
   );
 
   return (
-    <div className="relative min-h-screen">
-      {/* Micro-noise gradient background */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-lavender-50/40 via-transparent to-rose-50/30" />
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-6xl px-6 py-24 sm:px-10">
+    <div className="min-h-screen bg-[#FFFCF5]">
+      <div className="mx-auto max-w-6xl px-6 py-24 sm:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -176,7 +164,7 @@ export default function DiseasesPage() {
         >
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-foreground"
+            className="inline-flex items-center gap-2 text-sm text-neutral-500 transition hover:text-neutral-900"
           >
             <ChevronLeft className="h-4 w-4" /> العودة للرئيسية
           </Link>
@@ -187,13 +175,13 @@ export default function DiseasesPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <span className="glass-badge inline-flex items-center gap-2 text-xs text-lavender-700">
-            <Sparkles className="h-3.5 w-3.5" /> مرجعك الشامل
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#EAEAEA] bg-white px-4 py-1.5 text-xs text-neutral-600">
+            مرجعك الشامل
           </span>
-          <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight text-neutral-900 sm:text-5xl lg:text-6xl">
             موسوعة الأمراض النفسية
           </h1>
-          <p className="mt-3 max-w-2xl text-lg text-muted-foreground">
+          <p className="mt-3 max-w-2xl text-lg text-neutral-500">
             دليل شامل ومبسط لأكثر الاضطرابات النفسية شيوعًا. اختر أي مرض لقراءة تعريفه، أسبابه، أعراضه، وطرق علاجه.
           </p>
         </motion.div>
@@ -206,7 +194,7 @@ export default function DiseasesPage() {
         >
           <Input
             label="ابحث عن مرض"
-            leading={<Search className="h-4 w-4 text-muted-foreground" />}
+            leading={<Search className="h-4 w-4 text-neutral-400" />}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -216,31 +204,39 @@ export default function DiseasesPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {filtered.map((disease, i) => (
             <Link key={disease.slug} href={`/diseases/${disease.slug}`} className="group block">
-              <Card
-                variant="interactive"
-                tilt
-                glowOnHover
-                className="relative h-full overflow-hidden"
-              >
-                <div className={cn("absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100", disease.bg)} />
-                <div className="relative">
-                  <div className={cn("mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-glass-white transition-all duration-300", disease.color)}>
-                    <disease.icon className="h-6 w-6" />
-                  </div>
-                  <CardTitle className="text-lg">{disease.name}</CardTitle>
-                  <p className="mt-1 text-xs font-medium text-muted-foreground">{disease.subtitle}</p>
-                  <CardDescription className="mt-3 line-clamp-3">{disease.desc}</CardDescription>
-                  <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-                    <span className="inline-flex items-center gap-1 rounded-full glass-subtle px-2.5 py-1">
-                      {disease.stats}
-                    </span>
-                  </div>
+              <div className="flex h-full flex-col rounded-[24px] border border-[#EAEAEA] bg-white p-6 transition hover:bg-neutral-50">
+                <div
+                  className={cn(
+                    "mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-100",
+                    disease.color,
+                  )}
+                >
+                  <disease.icon className="h-7 w-7" />
                 </div>
-              </Card>
+                <h3 className="font-serif text-xl font-semibold text-neutral-900">
+                  {disease.name}
+                </h3>
+                <p className="mt-1 text-sm font-medium text-neutral-500">{disease.subtitle}</p>
+                <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-neutral-600">
+                  {disease.desc}
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-neutral-500">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[#EAEAEA] bg-white px-2.5 py-1">
+                    {disease.stats}
+                  </span>
+                </div>
+                <div className="mt-3 text-xs leading-relaxed text-neutral-500">
+                  <span className="font-medium text-neutral-700">الأعراض:</span>{" "}
+                  {disease.symptomsPreview}
+                </div>
+                <div className="mt-auto pt-4 text-sm font-medium text-neutral-900 transition group-hover:underline">
+                  اقرأ المزيد →
+                </div>
+              </div>
             </Link>
           ))}
         </motion.div>
@@ -251,8 +247,10 @@ export default function DiseasesPage() {
             animate={{ opacity: 1 }}
             className="mt-20 text-center"
           >
-            <Meh className="mx-auto h-12 w-12 text-muted-foreground" />
-            <p className="mt-4 text-lg text-muted-foreground">لم نجد نتائج لبحثك. جرب كلمة مختلفة.</p>
+            <Meh className="mx-auto h-12 w-12 text-neutral-400" />
+            <p className="mt-4 text-lg text-neutral-500">
+              لم نجد نتائج لبحثك. جرب كلمة مختلفة.
+            </p>
           </motion.div>
         )}
       </div>

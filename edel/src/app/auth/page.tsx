@@ -192,7 +192,7 @@ export default function AuthPage() {
     return Object.keys(next).length === 0;
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isLoading) return;
     if (!validate()) {
